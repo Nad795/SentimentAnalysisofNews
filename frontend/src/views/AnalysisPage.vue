@@ -9,7 +9,6 @@ const analysisStore = useAnalysisStore()
 const activeTab = ref('sentiment')
 const entitiesExpanded = ref(true)
 const themesExpanded = ref(true)
-const keywordsExpanded = ref(false)
 
 // Computed properties dari store
 const sentimentData = computed(() => {
@@ -41,10 +40,6 @@ const readabilityData = computed(() => {
         wordCount: analysisStore.result.word_count,
         sentenceCount: analysisStore.result.sentence_count
     }
-})
-
-const analysisText = computed(() => {
-    return analysisStore.result?.text || ''
 })
 
 const sentimentDetails = computed(() => {
@@ -188,7 +183,7 @@ const getMeterColor = computed(() => {
                 <h3 class="rating-title">Penjelasan</h3>
                 <p class="rating-text">
                     Teks ini memiliki tingkat keterbacaan <strong>{{ readabilityData?.category }}</strong>
-                    dengan skor {{ readabilityData?.score.toFixed(1) }}. Rata-rata {{ (readabilityData?.wordCount / readabilityData?.sentenceCount).toFixed(1) }} kata per kalimat.
+                    dengan skor {{ readabilityData?.score.toFixed(1) }}. Rata-rata {{ ((readabilityData?.wordCount ?? 0) / (readabilityData?.sentenceCount ?? 1)).toFixed(1) }} kata per kalimat.
                 </p>
                 </div>
             </div>
